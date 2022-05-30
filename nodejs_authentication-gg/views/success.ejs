@@ -11,7 +11,8 @@
 
 <body>
     <div class="container text-center">
-        <h3 class="p-4">Welcome <%= user.username %> </h3>
+        <h3 class="p-4">Welcome <%= user.username %>
+        </h3>
         <h3 class="p-2">If You See This Page <br> Then You Have Logged In Successfully ! </h3>
         <a class="btn btn-danger" href="/logout">Logout</a>
         <div class="container p-3">
@@ -25,8 +26,10 @@
                 </div>
                 <div>
                     <% user.messages.forEach(function(msg, index){ %>
-                    <h4><%= msg %></h4>
-                    <% }) %>
+                        <h4>
+                            <%= msg %>
+                        </h4>
+                        <% }) %>
                 </div>
             </form>
             <p>
