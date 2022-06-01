@@ -12,8 +12,6 @@ module.exports = function (passport) {
     done(null, obj);
   });
 
-  console.log("config: ", config.facebook_api_key);
-
   passport.use(
     new FacebookStrategy(
       {
@@ -26,11 +24,8 @@ module.exports = function (passport) {
 
         user.findOne({ facebookId: profile.id }).then((data) => {
           if (data) {
-            console.log("exist");
             return done(null, data);
           } else {
-            console.log("not exist");
-            console.log("profile: ", profile);
             user({
               username: profile.displayName,
               facebookId: profile.id,
