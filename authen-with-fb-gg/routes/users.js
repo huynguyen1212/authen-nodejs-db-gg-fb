@@ -32,6 +32,14 @@ router.get("/login", (req, res) => {
   res.render("login", { csrfToken: req.csrfToken() });
 });
 
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    successRedirect: "/profile",
+    failureFlash: true,
+  })(req, res, next);
+});
+
 router.get("/signup", (req, res) => {
   res.render("signup", { csrfToken: req.csrfToken() });
 });
@@ -92,18 +100,17 @@ router.post("/signup", (req, res) => {
   }
 });
 
-router.post("/login", (req, res, next) => {
-  passport.authenticate("local", {
-    failureRedirect: "/login",
-    successRedirect: "/profile",
-    failureFlash: true,
-  })(req, res, next);
-});
-
 router.get("/logout", (req, res) => {
   req.logout();
-  req.session.destroy(function (err) {
+  req.session.destroy((err) => {
     res.redirect("/");
+  });
+});
+
+router.post('/logout', function(req, res, next) {
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
   });
 });
 
@@ -115,6 +122,19 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
+  (req, res) => {
+    res.redirect("/profile");
+  }
+);
+
+router.get(
+  "/facebook",
+  passport.authenticate("facebook", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/facebook/callback",
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
   (req, res) => {
     res.redirect("/profile");
   }

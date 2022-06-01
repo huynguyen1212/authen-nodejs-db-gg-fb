@@ -42,9 +42,9 @@
           <li class="nav-item">
             <a class="nav-link active" href="">Login</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="/signup">Signup</a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -74,7 +74,7 @@
             <% } %>
 
               <form action="/login" , method="POST">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <!-- <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                 <div class="mb-3">
                   <label for="username">Enter Your Email</label>
                   <input type="email" class="form-control form-control-lg" name="email" id="username" autocomplete="off"
@@ -84,12 +84,16 @@
                   <label for="password">Enter Your Password</label>
                   <input type="password" class="form-control form-control-lg" name="password" id="password"
                     autocomplete="off" placeholder="Password" />
-                </div>
+                </div> -->
                 <div class="d-grid gap-3 mb-3">
-                  <input type="submit" class="btn btn-lg btn-block btn-outline-primary" value="Login" />
+                  <!-- <input type="submit" class="btn btn-lg btn-block btn-outline-primary" value="Login" /> -->
                   <a class="btn btn-lg btn-success" href="/google">Continue With Google</a>
                 </div>
-                <p>New Here ? <a class="card-link" href="/signup">Register Now</a></p>
+
+                <div class="d-grid gap-3 mb-3">
+                  <a class="btn btn-lg btn-success" href="/facebook">Continue With Facebook</a>
+                </div>
+                <!-- <p>New Here ? <a class="card-link" href="/signup">Register Now</a></p> -->
               </form>
     </div>
   </div>
