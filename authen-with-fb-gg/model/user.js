@@ -7,18 +7,19 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
+    // required: true,
   },
   password: {
     type: String,
   },
-
   isVerified: {
     type: Boolean,
     default: false,
   },
-
   googleId: {
+    type: String,
+  },
+  facebookId: {
     type: String,
   },
   provider: {

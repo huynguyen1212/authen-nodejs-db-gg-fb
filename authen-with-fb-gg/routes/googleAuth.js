@@ -22,10 +22,8 @@ module.exports = function (passport) {
         callbackURL: "http://localhost:3001/google/callback",
       },
       (accessToken, refreshToken, profile, done) => {
-        console.log(profile.emails[0].value);
-
         // find if a user exist with this email or not
-        user.findOne({ email: profile.emails[0].value }).then((data) => {
+        user.findOne({ googleId: profile.id }).then((data) => {
           if (data) {
             // user exists
             // update data

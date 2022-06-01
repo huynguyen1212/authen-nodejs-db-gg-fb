@@ -5,6 +5,7 @@ const bcryptjs = require("bcryptjs");
 const passport = require("passport");
 require("../config/passportLocal")(passport);
 require("./googleAuth")(passport);
+require("./facebookAuth")(passport);
 const userRoutes = require("./accountRoutes");
 
 function checkAuth(req, res, next) {
@@ -100,17 +101,19 @@ router.post("/signup", (req, res) => {
   }
 });
 
-router.get("/logout", (req, res) => {
-  req.logout();
-  req.session.destroy((err) => {
-    res.redirect("/");
-  });
-});
+// router.get("/logout", (req, res) => {
+//   req.logout();
+//   req.session.destroy((err) => {
+//     res.redirect("/");
+//   });
+// });
 
-router.post('/logout', function(req, res, next) {
-  req.logout(function(err) {
-    if (err) { return next(err); }
-    res.redirect('/');
+router.get("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
   });
 });
 
@@ -128,13 +131,16 @@ router.get(
 );
 
 router.get(
-  "/facebook",
-  passport.authenticate("facebook", { scope: ["profile", "email"] })
+  "/auth/facebook",
+  passport.authenticate("facebook", { scope: "email" })
 );
 
 router.get(
-  "/facebook/callback",
-  passport.authenticate("facebook", { failureRedirect: "/login" }),
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", {
+    // successRedirect: "/",
+    failureRedirect: "/login",
+  }),
   (req, res) => {
     res.redirect("/profile");
   }

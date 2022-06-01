@@ -1,5 +1,10 @@
 module.exports = {
-  facebook_key: "FB_APP_ID", //Điền App ID của bạn vào đây
-  facebook_secret: "FB_API_SECRET", //Điền App Secret ở đây
+  facebook_api_key: "312775440906565",
+  facebook_api_secret: "cef3d0cfc0998d22625dedbecb7da054",
   callback_url: "http://localhost:3001/auth/facebook/callback",
+  use_database: true,
+  host: "localhost",
+  username: "root",
+  password: "",
+  database: "login_passport",
 };
