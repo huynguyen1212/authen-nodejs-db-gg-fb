@@ -41,7 +41,7 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/signup", (req, res) => {
+router.get("/signup", (req, res) => {  
   res.render("signup", { csrfToken: req.csrfToken() });
 });
 
@@ -101,13 +101,6 @@ router.post("/signup", (req, res) => {
   }
 });
 
-// router.get("/logout", (req, res) => {
-//   req.logout();
-//   req.session.destroy((err) => {
-//     res.redirect("/");
-//   });
-// });
-
 router.get("/logout", (req, res, next) => {
   req.logout(function (err) {
     if (err) {
@@ -117,6 +110,7 @@ router.get("/logout", (req, res, next) => {
   });
 });
 
+//login gg, fb
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })

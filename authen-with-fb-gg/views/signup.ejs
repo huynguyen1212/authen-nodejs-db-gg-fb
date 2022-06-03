@@ -44,9 +44,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link active" href="">Signup</a>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
         </div>
@@ -88,9 +88,14 @@
                             <input type="password" class="form-control form-control-lg" name="confirmpassword"
                                 id="confirmpassword" autocomplete="off" placeholder="Confirm Password">
                         </div>
+
                         <div class="d-grid gap-3 mb-3">
-                            <input type="submit" class="btn btn-lg btn-outline-primary" value="Register">
-                            <a class="btn btn-lg btn-success" href="">Continue With Google</a>
+                            <input type="submit" class="btn btn-lg btn-block btn-outline-primary" value="Register" />
+                            <a class="btn btn-lg btn-success" href="/google">Continue With Google</a>
+                        </div>
+
+                        <div class="d-grid gap-3 mb-3">
+                            <a class="btn btn-lg btn-success" href="/auth/facebook">Continue With Facebook</a>
                         </div>
                         <p>Already Registered ? <a class="card-link" href="/login">LOGIN Here</a> </p>
                     </form>
