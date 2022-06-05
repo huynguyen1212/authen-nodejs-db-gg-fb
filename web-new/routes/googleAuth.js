@@ -1,7 +1,9 @@
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 const user = require("../model/user");
-const clientId = require("../config/googleData").clientId;
-const clientSecreT = require("../config/googleData").clientSecret;
+
+const clientId = process.env.CLIENT_ID;
+const clientSecreT = process.env.CLIENT_SECRET;
+const callbackUrl = process.env.CALLBACK_URL;
 
 module.exports = function (passport) {
   passport.serializeUser(function (user, done) {
@@ -19,7 +21,7 @@ module.exports = function (passport) {
       {
         clientID: clientId,
         clientSecret: clientSecreT,
-        callbackURL: "http://localhost:3001/google/callback",
+        callbackURL: callbackUrl,
       },
       (accessToken, refreshToken, profile, done) => {
         // find if a user exist with this email or not
