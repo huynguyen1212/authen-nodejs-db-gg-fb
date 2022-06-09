@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   role: {
     type: String,
-    required: true,
+    required: false,
   },
   username: {
     type: String,
@@ -15,10 +15,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-  },
-  isVerified: {
-    type: Boolean,
-    default: false,
   },
   googleId: {
     type: String,

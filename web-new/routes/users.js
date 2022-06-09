@@ -6,7 +6,6 @@ const passport = require("passport");
 require("../config/passportLocal")(passport);
 require("./googleAuth")(passport);
 require("./facebookAuth")(passport);
-const userRoutes = require("./accountRoutes");
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -41,7 +40,7 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/signup", (req, res) => {  
+router.get("/signup", (req, res) => {
   res.render("signup", { csrfToken: req.csrfToken() });
 });
 
@@ -147,7 +146,5 @@ router.get("/profile", checkAuth, (req, res) => {
     verified: req.user.isVerified,
   });
 });
-
-router.use(userRoutes);
 
 module.exports = router;
