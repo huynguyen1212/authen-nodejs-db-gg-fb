@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const post = require("../model/post");
 const user = require("../model/user");
 const bcryptjs = require("bcryptjs");
 const passport = require("passport");
 require("../config/passportLocal")(passport);
-require("./googleAuth")(passport);
-require("./facebookAuth")(passport);
+require("../config/googleAuth")(passport);
+require("../config/facebookAuth")(passport);
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -21,6 +22,7 @@ function checkAuth(req, res, next) {
 }
 
 router.get("/", (req, res) => {
+  console.log("post: ", post.findOne(1));
   if (req.isAuthenticated()) {
     res.render("index", { logged: true });
   } else {
@@ -85,6 +87,7 @@ router.post("/signup", (req, res) => {
                 password: hash,
                 googleId: null,
                 provider: "email",
+                role: "user",
               }).save((err, data) => {
                 if (err) throw err;
                 // login the user

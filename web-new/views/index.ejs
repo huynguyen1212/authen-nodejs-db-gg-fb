@@ -38,6 +38,9 @@
           </li>
           <% if(logged){ %>
             <li class="nav-item">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="/logout">Logout</a>
             </li>
             <% }else{ %>
@@ -55,7 +58,33 @@
   <!-- navbar end  -->
 
   <div class="container py-3">
-    <h1>Welcome</h1>
+    <% if(logged){ %>
+      <div>
+        <div class="item" style="display: flex; width: 100%; justify-content: space-between; margin-bottom: 20px;">
+          <span>Bài viết</span>
+          <div>
+            <a class="btn btn-lg btn-block btn-outline-primary" href="/posts/new">Thêm</a>
+            <a class="btn btn-lg btn-block btn-outline-primary" href="/posts/new">Sửa</a>
+            <a class="btn btn-lg btn-block btn-outline-primary" href="/posts/new">Xóa</a>
+          </div>
+        </div>
+
+        <div class="item" style="display: flex; width: 100%; justify-content: space-between;">
+          <span>Người dùng</span>
+          <div>
+            <a class="btn btn-lg btn-block btn-outline-primary" href="/user/new">Thêm</a>
+            <a class="btn btn-lg btn-block btn-outline-primary" href="/user/new">Sửa</a>
+            <a class="btn btn-lg btn-block btn-outline-primary" href="/user/new">Xóa</a>
+          </div>
+        </div>
+
+        <div class="content">
+
+        </div>
+      </div>
+      <% }else{ %>
+        <h1>Welcome</h1>
+        <% } %>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"

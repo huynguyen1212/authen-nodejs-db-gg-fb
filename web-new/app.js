@@ -36,7 +36,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     // setting the max age to longer duration
-    maxAge: 24 * 60 * 60 * 1000,
+    maxAge: 24 * 60 * 60 * 10000,
     store: new MemoryStore(),
   })
 );
@@ -55,7 +55,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(require("./routes/users.js"));
-app.use("post", require("./routes/posts.js"));
+app.use("/posts", require("./routes/posts.js"));
 
 const PORT = process.env.PORT || 3001;
 
