@@ -59,37 +59,69 @@
 
   <div class="container py-3">
     <% if(logged){ %>
-      <div>
-        <div class="item" style="display: flex; width: 100%; justify-content: space-between; margin-bottom: 20px;">
-          <span>Bài viết</span>
-          <div>
-            <a class="btn btn-lg btn-block btn-outline-primary" href="/posts/new">Thêm</a>
-            <a class="btn btn-lg btn-block btn-outline-primary" href="/posts/new">Sửa</a>
-            <a class="btn btn-lg btn-block btn-outline-primary" href="/posts/new">Xóa</a>
+      <% if(user==="admin" ){ %>
+        <div>
+          <div class="item" style="display: flex; width: 100%; justify-content: space-between; margin-bottom: 20px;">
+            <span>Bài viết</span>
+            <div>
+              <a class="btn btn-lg btn-block btn-outline-primary" href="/posts/new">Thêm</a>
+            </div>
           </div>
-        </div>
 
-        <div class="item" style="display: flex; width: 100%; justify-content: space-between;">
-          <span>Người dùng</span>
-          <div>
-            <a class="btn btn-lg btn-block btn-outline-primary" href="/user/new">Thêm</a>
-            <a class="btn btn-lg btn-block btn-outline-primary" href="/user/new">Sửa</a>
-            <a class="btn btn-lg btn-block btn-outline-primary" href="/user/new">Xóa</a>
-          </div>
-        </div>
-
-        <div class="content">
-
-        </div>
+          <div class="content">
+            <% posts=posts.map(function(elem) {
+              return '<div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">' + elem.des
+              + '<div class=" button">'
+              + '<a class="btn btn-lg btn-block btn-outline-primary" href="posts/detail">' + 'Xem'
+              + '</a>' + '</div>' + '</div>' ; }) -%>
+              <p>
+                <%- posts.join(" ") %></p>
       </div>
-      <% }else{ %>
-        <h1>Welcome</h1>
-        <% } %>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-    crossorigin="anonymous"></script>
+                  <div class=" item" style="display: flex; width: 100%; justify-content: space-between;">
+                  <span>Người dùng</span>
+
+                  <!-- <div>
+                    <a class="btn btn-lg btn-block btn-outline-primary" href="/user/new">Thêm</a>
+                  </div> -->
+          </div>
+
+          <div class="content">
+            <% users=users.map(function(elem) {
+              return '<div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">' +
+              elem.username + '<div class=" button">'
+              + '<a class="btn btn-lg btn-block btn-outline-primary" href="/user/detail">' + 'Xem' + '</a>' + '</div>'
+              + '</div>' ; }) -%>
+              <p>
+                <%- users.join(" ") %></p>
+              </div>
+        </div>
+        <% } else{ %>
+          <div>
+            <div class=" item"
+                  style="display: flex; width: 100%; justify-content: space-between; margin-bottom: 20px;">
+                  <span>Bài viết</span>
+          </div>
+
+          <div class="content">
+            <% posts=posts.map(function(elem) {
+              return '<div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">' + elem.des
+              + '<div class=" button">' + '<a class="btn btn-lg btn-block btn-outline-primary" href="/posts/detail">'
+              + 'Xem' + '</a>' + '</div>' + '</div>' ; }) -%>
+              <p>
+                <%- posts.join(" ") %></p>
+        </div>
+          </div>
+          <% } %>
+        <% }else{ %>
+          <h1>Welcome</h1>
+          <% } %>
+      </div>
+
+      <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+                  integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+                  crossorigin="anonymous">
+                  </script>
 
 </body>
 

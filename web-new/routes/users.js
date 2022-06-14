@@ -21,14 +21,34 @@ function checkAuth(req, res, next) {
   }
 }
 
-router.get("/", (req, res) => {
-  console.log("post: ", post.findOne(1));
+router.get("/", async (req, res) => {
+  //find all
+  const posts = await post.find({});
+  const users = await user.find({});
+
   if (req.isAuthenticated()) {
-    res.render("index", { logged: true });
+    res.render("index", {
+      posts: posts,
+      user: req?.user?.role,
+      logged: true,
+      users: users,
+      csrfToken: req.csrfToken(),
+    });
   } else {
-    res.render("index", { logged: false });
+    res.render("index", {
+      posts: posts,
+      user: req?.user?.role,
+      logged: false,
+      users: users,
+      csrfToken: req.csrfToken(),
+    });
   }
 });
+
+// router.delete("user/delete/:id", (req, res) => {
+//   console.log("req: ", req);
+//   user.remove({})
+// });
 
 router.get("/login", (req, res) => {
   res.render("login", { csrfToken: req.csrfToken() });

@@ -8,6 +8,7 @@ const expressSession = require("express-session");
 const MemoryStore = require("memorystore")(expressSession);
 const passport = require("passport");
 const flash = require("connect-flash");
+// var mongoUtil = require("./config/db");
 
 const app = express();
 
@@ -17,6 +18,10 @@ app.set("views", __dirname + "/views");
 app.use(express.urlencoded({ extended: true }));
 
 //connect mongodb
+// mongoUtil.connectToServer(function (err, client) {
+//   if (err) console.log(err);
+//   // start the rest of your app here
+// });
 mongoose.connect(
   process.env.MONGOURL,
   {
