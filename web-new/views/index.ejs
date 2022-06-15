@@ -69,19 +69,26 @@
           </div>
 
           <div class="content">
-            <% posts=posts.map(function(elem) {
-              return '<div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">' + elem.des
-              + '<div class=" button">'
-              + '<a class="btn btn-lg btn-block btn-outline-primary" href="posts/detail">' + 'Xem'
-              + '</a>' + '</div>' + '</div>' ; }) -%>
-              <p>
-                <%- posts.join(" ") %></p>
-      </div>
+            <% posts.forEach(function(elem) { %>
+              <div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">
+                <%= elem.des %>
 
-                  <div class=" item" style="display: flex; width: 100%; justify-content: space-between;">
-                  <span>Người dùng</span>
+                  <div class=" button" style="display: flex;">
+                    <a class="btn btn-lg btn-block btn-outline-primary" href="posts/detail/:id=<%= elem._id %>">Xem</a>
 
-                  <!-- <div>
+                    <form action="posts/delete/:id=<%= elem._id %>" method="POST" style="margin-left: 10px;">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                      <input class="btn btn-lg btn-block btn-outline-primary" type="submit" value="Xóa">
+                    </form>
+                  </div>
+              </div>
+              <% }); %>
+          </div>
+
+          <div class=" item" style="display: flex; width: 100%; justify-content: space-between;">
+            <span>Người dùng</span>
+
+            <!-- <div>
                     <a class="btn btn-lg btn-block btn-outline-primary" href="/user/new">Thêm</a>
                   </div> -->
           </div>
