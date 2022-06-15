@@ -70,13 +70,33 @@
 
           <div class="content">
             <% posts.forEach(function(elem) { %>
+              <div>
+                <div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">
+                  <%= elem.des %>
+                    <div class=" button" style="display: flex;">
+                      <a class="btn btn-lg btn-block btn-outline-primary"
+                        href="posts/detail/:id=<%= elem._id %>">Xem</a>
+
+                      <form action="posts/delete/:id=<%= elem._id %>" method="POST" style="margin-left: 10px;">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                        <input class="btn btn-lg btn-block btn-outline-primary" type="submit" value="Xóa">
+                      </form>
+                    </div>
+                </div>
+              </div>
+              <% }); %>
+          </div>
+
+          <div class=" item" style="display: flex; width: 100%; justify-content: space-between; margin-top: 50px;">
+            <span style="margin-bottom: 30px;">Người dùng</span>
+          </div>
+
+          <div class="content">
+            <% users.forEach(function(elem) { %>
               <div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">
-                <%= elem.des %>
-
+                <%= elem.username %>
                   <div class=" button" style="display: flex;">
-                    <a class="btn btn-lg btn-block btn-outline-primary" href="posts/detail/:id=<%= elem._id %>">Xem</a>
-
-                    <form action="posts/delete/:id=<%= elem._id %>" method="POST" style="margin-left: 10px;">
+                    <form action="delete/:id=<%= elem._id %>" method="POST" style="margin-left: 10px;">
                       <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                       <input class="btn btn-lg btn-block btn-outline-primary" type="submit" value="Xóa">
                     </form>
@@ -84,51 +104,46 @@
               </div>
               <% }); %>
           </div>
-
-          <div class=" item" style="display: flex; width: 100%; justify-content: space-between;">
-            <span>Người dùng</span>
-
-            <!-- <div>
-                    <a class="btn btn-lg btn-block btn-outline-primary" href="/user/new">Thêm</a>
-                  </div> -->
-          </div>
-
-          <div class="content">
-            <% users=users.map(function(elem) {
-              return '<div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">' +
-              elem.username + '<div class=" button">'
-              + '<a class="btn btn-lg btn-block btn-outline-primary" href="/user/detail">' + 'Xem' + '</a>' + '</div>'
-              + '</div>' ; }) -%>
-              <p>
-                <%- users.join(" ") %></p>
-              </div>
         </div>
         <% } else{ %>
           <div>
-            <div class=" item"
-                  style="display: flex; width: 100%; justify-content: space-between; margin-bottom: 20px;">
-                  <span>Bài viết</span>
-          </div>
+            <div class=" item" style="display: flex; width: 100%; justify-content: space-between; margin-bottom: 20px;">
+              <span>Bài viết</span>
+            </div>
 
-          <div class="content">
-            <% posts=posts.map(function(elem) {
-              return '<div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">' + elem.des
-              + '<div class=" button">' + '<a class="btn btn-lg btn-block btn-outline-primary" href="/posts/detail">'
-              + 'Xem' + '</a>' + '</div>' + '</div>' ; }) -%>
-              <p>
-                <%- posts.join(" ") %></p>
-        </div>
+            <div class="content">
+              <% posts.forEach(function(elem) { %>
+                <div style="margin-bottom: 30px;">
+                  <div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">
+                    <%= elem.des %>
+                      <!-- <div class=" button" style="display: flex;">
+                        <a class="btn btn-lg btn-block btn-outline-primary"
+                          href="posts/detail/:id=<%= elem._id %>">Xem</a>
+                      </div> -->
+                  </div>
+
+                  <form action="/posts/new-cmt/:id=<%= elem._id %>" method="POST" style="width: 75%;">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <div style="display: flex; justify-content: space-between;">
+                      <input type="text" class="form-control form-control-lg" name="cmt" id="cmt" autocomplete="off"
+                        placeholder="Comment">
+                      <input style="margin-left: 10px;" type="submit" class="btn btn-lg btn-block btn-outline-primary"
+                        value="Comment" />
+                    </div>
+                  </form>
+                </div>
+                <% }); %>
+            </div>
           </div>
           <% } %>
-        <% }else{ %>
-          <h1>Welcome</h1>
-          <% } %>
-      </div>
+            <% }else{ %>
+              <h1>Welcome</h1>
+              <% } %>
+  </div>
 
-      <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-                  integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-                  crossorigin="anonymous">
-                  </script>
+  <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+    </script>
 
 </body>
 

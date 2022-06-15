@@ -87,9 +87,6 @@ router.post("/delete/:id", (req, res) => {
 router.post("/new", async (req, res) => {
   const { des } = req.body;
 
-  //find all
-  const checkUser = await user.find({});
-
   if (req.user.role === "admin") {
     if (!des) {
       res.render("new-post", {
@@ -107,6 +104,48 @@ router.post("/new", async (req, res) => {
         });
       });
     }
+  }
+});
+
+///
+
+router.post("/new-cmt/:id", async (req, res) => {
+  const id = req.params.id.split("=")[1];
+  const { cmt } = req.body;
+
+  const cmtNew = {
+    content: cmt,
+  };
+
+  let postByID;
+
+  try {
+    postByID = await post.findById(id);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    res.send("Something wrong");
+    res.redirect("/");
+  }
+
+  console.log("postByID.cmt", postByID.cmt);
+
+  if (!cmt) {
+    res.status(500);
+    res.send("Something wrong");
+  } else {
+    post.findByIdAndUpdate(
+      id,
+      { cmt: postByID.cmt.push(cmtNew) },
+      function (err, docs) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.status(200);
+          res.redirect("/");
+        }
+      }
+    );
   }
 });
 

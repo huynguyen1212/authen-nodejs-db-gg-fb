@@ -45,10 +45,23 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.delete("user/delete/:id", (req, res) => {
-//   console.log("req: ", req);
-//   user.remove({})
-// });
+router.post("/delete/:id", (req, res) => {
+  const id = req.params.id.split("=")[1];
+
+  if (req.user.role === "admin") {
+    user.findByIdAndDelete(id, function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200);
+        res.redirect("/");
+      }
+    });
+  } else {
+    res.status(500);
+    res.send("Something wrong");
+  }
+});
 
 router.get("/login", (req, res) => {
   res.render("login", { csrfToken: req.csrfToken() });
