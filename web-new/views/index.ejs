@@ -70,7 +70,7 @@
 
           <div class="content">
             <% posts.forEach(function(elem) { %>
-              <div>
+              <div style="margin-bottom: 30px;">
                 <div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">
                   <%= elem.des %>
                     <div class=" button" style="display: flex;">
@@ -83,6 +83,21 @@
                       </form>
                     </div>
                 </div>
+
+                <% elem.cmt.forEach(function(cmtsmall) { %>
+                  <div style="margin: 0 0 0 30px;">
+                    <div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">
+                      <%= cmtsmall.content %>
+                        <div class=" button" style="display: flex;">
+                          <form action="posts/cmt-delete/id=<%= cmtsmall._id %>/:idPost=<%= elem._id %>" method="POST"
+                            style="margin-left: 10px;">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                            <input class="btn btn-lg btn-block btn-outline-primary" type="submit" value="Xóa">
+                          </form>
+                        </div>
+                    </div>
+                  </div>
+                  <% }); %>
               </div>
               <% }); %>
           </div>
@@ -122,15 +137,25 @@
                       </div> -->
                   </div>
 
-                  <form action="/posts/new-cmt/:id=<%= elem._id %>" method="POST" style="width: 75%;">
-                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                    <div style="display: flex; justify-content: space-between;">
-                      <input type="text" class="form-control form-control-lg" name="cmt" id="cmt" autocomplete="off"
-                        placeholder="Comment">
-                      <input style="margin-left: 10px;" type="submit" class="btn btn-lg btn-block btn-outline-primary"
-                        value="Comment" />
+                  <div style="margin: 0 0 0 30px;">comment</div>
+
+                  <% elem.cmt.forEach(function(cmtsmall) { %>
+                    <div style="margin: 0 0 0 30px;">
+                      <div style="display: flex; justify-content: space-between; margin: 0px 10px 5px;">
+                        <%= cmtsmall.content %>
+                      </div>
                     </div>
-                  </form>
+                    <% }); %>
+
+                      <form action="/posts/new-cmt/:id=<%= elem._id %>" method="POST" style="width: 75%; margin-left: 30px;">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <div style="display: flex; justify-content: space-between;">
+                          <input type="text" class="form-control form-control-lg" name="cmt" id="cmt" autocomplete="off"
+                            placeholder="Comment">
+                          <input style="margin-left: 10px;" type="submit"
+                            class="btn btn-lg btn-block btn-outline-primary" value="Comment" />
+                        </div>
+                      </form>
                 </div>
                 <% }); %>
             </div>

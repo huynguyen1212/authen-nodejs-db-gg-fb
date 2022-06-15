@@ -25,10 +25,12 @@ router.get("/", async (req, res) => {
   //find all
   const posts = await post.find({});
   const users = await user.find({});
+  
 
   if (req.isAuthenticated()) {
     res.render("index", {
       posts: posts,
+      cmt: posts.cmt,
       user: req?.user?.role,
       logged: true,
       users: users,
@@ -37,6 +39,7 @@ router.get("/", async (req, res) => {
   } else {
     res.render("index", {
       posts: posts,
+      cmt: posts.cmt,
       user: req?.user?.role,
       logged: false,
       users: users,

@@ -128,24 +128,57 @@ router.post("/new-cmt/:id", async (req, res) => {
     res.redirect("/");
   }
 
-  console.log("postByID.cmt", postByID.cmt);
+  const postUpdate = [...postByID.cmt, cmtNew];
 
   if (!cmt) {
     res.status(500);
     res.send("Something wrong");
   } else {
-    post.findByIdAndUpdate(
-      id,
-      { cmt: postByID.cmt.push(cmtNew) },
-      function (err, docs) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.status(200);
-          res.redirect("/");
-        }
+    post.findByIdAndUpdate(id, { cmt: postUpdate }, function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200);
+        res.redirect("/");
       }
-    );
+    });
+  }
+});
+
+////
+
+router.post("/cmt-delete/:id/:idPost", async (req, res) => {
+  const id = req.params.id.split("=")[1];
+  const idPost = req.params.idPost.split("=")[1];
+
+  let postByID;
+
+  try {
+    postByID = await post.findById(idPost);
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    res.send("Something wrong");
+    res.redirect("/");
+  }
+
+  let cmtUpdate = [];
+  postByID.cmt.map((item) => {
+    if (item.id !== id) cmtUpdate.push(item);
+  });
+
+  if (req.user.role === "admin") {
+    post.findByIdAndUpdate(idPost, { cmt: cmtUpdate }, function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200);
+        res.redirect("/");
+      }
+    });
+  } else {
+    res.status(500);
+    res.send("Something wrong");
   }
 });
 
